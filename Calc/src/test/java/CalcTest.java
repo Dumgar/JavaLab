@@ -11,18 +11,22 @@ public class CalcTest {
     private String[] args = {"1", "-", "4"};
     private List resultList = Arrays.asList(1, 1, 4);
 
+
+    //Сначала я написал этот тест
     @Test
     public void testCalc(){
         double result = Calc.calc(args);
         assertThat(result, is(-3.0));
     }
 
+    //Потом этот
     @Test
     public void testParse() {
         List parseExp = Calc.parse(args);
         assertThat(parseExp, is(resultList));
     }
 
+    //А потом все эти зараз, потому что они не зависят от операции, операции нам нужны только в calc
     @Test
     public void testSum(){
         int result = Calc.sum(resultList);
