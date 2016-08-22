@@ -1,58 +1,60 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by romandmitriev on 22.08.16.
- */
 public class Calc {
-    public static int sum(int a, int b) {
-        return a + b;
+    static double calc(String[] exp) {
+        List<Integer> list = parse(exp);
+        switch (list.get(1)){
+            case (0):
+                return sum(list);
+            case (1):
+                return sub(list);
+            case (2):
+                return mtpl(list);
+            case (3):
+                return div(list);
+            default:
+                return 0;
+        }
     }
 
-    public static int div(int a, int b) {
-        return a / b;
-    }
-
-    public static int sub(int a, int b) {
-        return a - b;
-    }
-
-    public static int mtpl(int a, int b) {
-        return a * b;
-    }
-
-    public static List<Integer> parse(List<String> string) {
+    static List<Integer> parse(String[] args) {
         ArrayList<Integer> list = new ArrayList<>();
-        list.add(Integer.parseInt(string.get(0)));
-        list.add(Integer.parseInt(string.get(2)));
+        list.add(Integer.parseInt(args[0]));
 
-        switch (string.get(1)) {
+        switch (args[1]) {
             case ("+"):
                 list.add(0);
                 break;
-            case ("/"):
+            case ("-"):
                 list.add(1);
                 break;
-            case ("-"):
+            case ("*"):
                 list.add(2);
                 break;
-            case ("*"):
+            case ("/"):
                 list.add(3);
                 break;
         }
 
+        list.add(Integer.parseInt(args[2]));
+
         return list;
     }
 
+    static int sum(List<Integer> list) {
+        return list.get(0) + list.get(2);
+    }
 
-    public static int calculate(String[] args) {
+    static int sub(List<Integer> list) {
+        return list.get(0) - list.get(2);
+    }
 
+    static int mtpl(List<Integer> list) {
+        return list.get(0) * list.get(2);
+    }
 
-        List<Integer> parse = parse(Arrays.asList(args));
-
-
-
-
+    static double div(List<Integer> list) {
+        return (double)list.get(0) / list.get(2);
     }
 }

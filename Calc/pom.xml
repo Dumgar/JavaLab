@@ -6,7 +6,7 @@
         <artifactId>Calc</artifactId>
         <groupId>JavaLab</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../src/pom.xml</relativePath>
+        <relativePath>pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
