@@ -3,8 +3,11 @@ import java.util.List;
 
 public class Calc {
     static double calc(String[] exp) {
+        if (exp.length != 3) {
+            return 0;
+        }
         List<Integer> list = parse(exp);
-        switch (list.get(1)){
+        switch (list.get(1)) {
             case (0):
                 return sum(list);
             case (1):
@@ -55,6 +58,6 @@ public class Calc {
     }
 
     static double div(List<Integer> list) {
-        return (double)list.get(0) / list.get(2);
+        return (double) list.get(0) / list.get(2);
     }
 }
