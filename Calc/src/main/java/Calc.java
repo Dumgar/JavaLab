@@ -22,7 +22,7 @@ public class Calc {
     }
 
     static List<Integer> parse(String[] args) {
-        ArrayList<Integer> list = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
         list.add(Integer.parseInt(args[0]));
 
         switch (args[1]) {

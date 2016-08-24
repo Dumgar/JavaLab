@@ -10,29 +10,23 @@ import static org.hamcrest.core.Is.*;
 
 @RunWith(Parameterized.class)
 public class CalcTest {
-    private List<Integer> resultList = Arrays.asList(1, 1, 4); //поставил у списков дженерики, а так норм :)
 
+    private List<Integer> resultList; //поставил у списков дженерики, а так норм :)
+    private double result;
+    private String[] args;
 
     @Parameterized.Parameters(name = "{index}: First num: {0}, Operator: {1}, Second num: {2}")
     public static Iterable<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"1", "-", "4", -3.0},
-                {"6", "+", "2", 8.0}
+                {"1", "-", "4", -3.0, Arrays.asList(1, 1, 4)},
+                {"6", "+", "2", 8.0, Arrays.asList(6, 0, 2)}
         });
     }
 
-    private String firstNum;
-    private String oper;
-    private String secondNum;
-    private double result;
-    private String[] args;
-
-    public CalcTest(String firstNum, String oper, String secondNum, double result) {
-        this.firstNum = firstNum;
-        this.oper = oper;
-        this.secondNum = secondNum;
+    public CalcTest(String firstNum, String oper, String secondNum, double result, List<Integer> resultList) {
         this.result = result;
         this.args = new String[]{firstNum, oper, secondNum};
+        this.resultList = resultList;
     }
 
     //Сначала я написал этот тест
@@ -55,30 +49,4 @@ public class CalcTest {
         List<Integer> parseExp = Calc.parse(args);
         assertThat(parseExp, is(resultList));
     }
-
-    //А потом все эти зараз, потому что они не зависят от операции, операции нам нужны только в calc
-    @Test
-    public void testSum() {
-        int result = Calc.sum(resultList);
-        assertThat(result, is(5));
-    }
-
-    @Test
-    public void testSub() {
-        int result = Calc.sub(resultList);
-        assertThat(result, is(-3));
-    }
-
-    @Test
-    public void testMtpl() {
-        int result = Calc.mtpl(resultList);
-        assertThat(result, is(4));
-    }
-
-    @Test
-    public void testDiv() {
-        double result = Calc.div(resultList);
-        assertThat(result, is(0.25));
-    }
-
 }
