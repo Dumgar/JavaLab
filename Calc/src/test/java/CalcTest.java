@@ -1,4 +1,6 @@
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,16 +8,37 @@ import java.util.List;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.*;
 
+@RunWith(Parameterized.class)
 public class CalcTest {
-    private String[] args = {"1", "-", "4"};
     private List<Integer> resultList = Arrays.asList(1, 1, 4); //поставил у списков дженерики, а так норм :)
 
+
+    @Parameterized.Parameters(name = "{index}: First num: {0}, Operator: {1}, Second num: {2}")
+    public static Iterable<Object[]> data() {
+        return Arrays.asList(new Object[][]{
+                {"1", "-", "4", -3.0},
+                {"6", "+", "2", 8.0}
+        });
+    }
+
+    private String firstNum;
+    private String oper;
+    private String secondNum;
+    private double result;
+    private String[] args;
+
+    public CalcTest(String firstNum, String oper, String secondNum, double result) {
+        this.firstNum = firstNum;
+        this.oper = oper;
+        this.secondNum = secondNum;
+        this.result = result;
+        this.args = new String[]{firstNum, oper, secondNum};
+    }
 
     //Сначала я написал этот тест
     @Test
     public void testCalc() {
-        double result = Calc.calc(args);
-        assertThat(result, is(-3.0));
+        assertThat(Calc.calc(args), is(result));
     }
 
     // на случай, если аргументов метода main нет или их больше 3, пусть возваращает 0 как в твоем свитче,
