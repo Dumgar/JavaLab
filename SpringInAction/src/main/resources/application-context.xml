@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="duke" class="Juggler">
+        <constructor-arg value="15"/>
+    </bean>
+
+    <bean id="poeticDuke" class="PoeticJuggler">
+        <constructor-arg value="15"/>
+        <constructor-arg>
+            <bean class="Sonet29"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="theStage" class="Stage" factory-method="getInstance"/>
+
+    <bean id="auditorium" class="Auditorium"
+          init-method="turnOnLights"
+          destroy-method="turnOffLight"/>
+
+    <bean id="kenny" class="Instrumentalist">
+        <property name="song" value="У Шамана Три Руки"/>
+        <property name="instrument">
+            <bean class="Saxophone"/>
+        </property>
+    </bean>
+
+    <bean id="piano" class="Piano"/>
+
+    <bean id="hank" class="OneManBand">
+        <property name="instruments">
+            <map>
+                <entry key="GUITAR" value-ref="guitar"/>
+                <entry key="PIANO" value-ref="piano"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="guitar" class="Guitar"/>
+
+    <bean id="carl" class="Instrumentalist">
+        <property name="song" value="#{kenny.song}"/>
+    </bean>
+
+</beans>
